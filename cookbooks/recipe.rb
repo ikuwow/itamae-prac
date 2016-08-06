@@ -1,4 +1,4 @@
-%w{tree git vim}.each do |pkg|
+%w{tree git vim-common}.each do |pkg|
     package pkg do
         action :install
     end
