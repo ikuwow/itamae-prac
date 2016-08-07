@@ -37,3 +37,11 @@ remote_file '/var/www/html/index.php' do
     group 'apache'
 end
 # omitted
+
+execute 'create a file' do
+    command 'echo hello > /home/vagrant/hello.txt'
+    user 'vagrant'
+    action :run
+    not_if 'test -e /home/vagrant/hello.txt'
+end
+
