@@ -10,6 +10,7 @@ end
 
 service 'httpd' do
     action [:enable, :start]
+    subscribes :reload, 'remote_file[/etc/php.ini]' # charactoristic!!
 end
 
 template '/var/www/html/index.html' do
@@ -19,3 +20,20 @@ template '/var/www/html/index.html' do
     group 'apache'
     variables(thisis: 'itamae')
 end
+
+%w{php php-devel php-mbstring php-gd}.each do |pkg|
+    package pkg
+end
+
+remote_file '/etc/php.ini' do
+    action :create # default
+    source 'files/php.ini'
+    owner 'root'
+    group 'root'
+end
+
+remote_file '/var/www/html/index.php' do
+    owner 'apache'
+    group 'apache'
+end
+# omitted
