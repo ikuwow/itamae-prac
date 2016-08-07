@@ -45,3 +45,11 @@ execute 'create a file' do
     not_if 'test -e /home/vagrant/hello.txt'
 end
 
+file '/home/vagrant/hello.txt' do
+    action :edit
+    block do |content|
+        content.gsub!('hello', 'hello world')
+    end
+    only_if 'test -e /home/vagrant/hello.txt'
+end
+
