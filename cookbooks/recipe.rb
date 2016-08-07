@@ -62,3 +62,5 @@ define :install_start_enable_package do
 end
 
 install_start_enable_package 'postfix'
+
+include_recipe './mariadb.rb'
