@@ -48,8 +48,17 @@ end
 file '/home/vagrant/hello.txt' do
     action :edit
     block do |content|
-        content.gsub!('hello', 'hello world')
+        content.gsub!('hello', 'Hello world')
     end
     only_if 'test -e /home/vagrant/hello.txt'
 end
 
+# definition
+define :install_start_enable_package do
+    package params[:name]
+    service params[:name] do
+        action [:enable, :start]
+    end
+end
+
+install_start_enable_package 'postfix'
